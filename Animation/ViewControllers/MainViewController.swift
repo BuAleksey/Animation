@@ -31,9 +31,6 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func startAnimation(_ sender: SpringButton) {
-        
-        sender.setTitle("Start: \(animations[index + 1].preset)", for: .normal)
-        
         backgroundView.animation = animations[index].preset
         backgroundView.curve = animations[index].curve
         backgroundView.force = animations[index].forse
@@ -41,7 +38,13 @@ class MainViewController: UIViewController {
         backgroundView.animate()
         
         setupLabels()
-        index += 1
+        
+        if index == 100 {
+            index = 0
+        } else {
+            index += 1
+        }
+        sender.setTitle("Start: \(animations[index].preset)", for: .normal)
     }
 }
 
