@@ -14,15 +14,25 @@ struct Animation {
     let duration: CGFloat
     let delay: CGFloat
     
-    static func getAnimation() -> Animation {
-        let store = DataStore()
-        let randomPreset = Int.random(in: 0..<store.presets.count)
-        let randomCurve = Int.random(in: 0..<store.cuves.count)
-        let animation = Animation(preset: store.presets[randomPreset], curve: store.cuves[randomCurve], forse: CGFloat.random(in: 0...2), duration: CGFloat.random(in: 0.5...5), delay: 0.30)
+    static func getAnimation() -> [Animation] {
+        let dataStore = DataStore()
+        var animations: [Animation] = []
         
-        return animation
+        //как сделать бесконечный перебор анимаций по нажатию на кнопку не придумал(
+        for _ in 0...100 {
+            let randomPreset = Int.random(in: 0..<dataStore.presets.count)
+            let randomCurve = Int.random(in: 0..<dataStore.cuves.count)
+            let animation = Animation(
+                preset: dataStore.presets[randomPreset],
+                curve: dataStore.cuves[randomCurve],
+                forse: CGFloat.random(in: 0.5...2),
+                duration: CGFloat.random(in: 0.5...5),
+                delay: 0.30
+            )
+            animations.append(animation)
+        }
+        return animations
     }
-    
 }
 
 

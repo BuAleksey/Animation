@@ -9,7 +9,7 @@ import UIKit
 import SpringAnimation
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet var backgroundView: SpringView!
     
     @IBOutlet var presetLabel: UILabel!
@@ -20,9 +20,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet var startButton: UIButton!
     
-    var animation: Animation {
-        Animation.getAnimation()
-    }
+    private var animations = Animation.getAnimation()
+    private var index = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,26 +32,27 @@ class MainViewController: UIViewController {
     
     @IBAction func startAnimation(_ sender: SpringButton) {
         
-        setupLabels()
+        sender.setTitle("Start: \(animations[index + 1].preset)", for: .normal)
         
-        sender.setTitle("Start: \(animation.preset)", for: .normal)
-        
-        backgroundView.animation = animation.preset
-        backgroundView.curve = animation.curve
-        backgroundView.force = animation.forse
-        backgroundView.duration = animation.duration
+        backgroundView.animation = animations[index].preset
+        backgroundView.curve = animations[index].curve
+        backgroundView.force = animations[index].forse
+        backgroundView.duration = animations[index].duration
         backgroundView.animate()
+        
+        setupLabels()
+        index += 1
     }
 }
 
 //MARK: - Private func
 extension MainViewController {
     private func setupLabels() {
-        presetLabel.text = animation.preset
-        curveLabel.text = animation.curve
-        forseLabel.text = String(format: "%.2f", animation.forse)
-        durationLabel.text = String(format: "%.2f", animation.duration)
-        delayLabel.text = String(format: "%.2f", animation.delay)
+        presetLabel.text = animations[index].preset
+        curveLabel.text = animations[index].curve
+        forseLabel.text = String(format: "%.2f", animations[index].forse)
+        durationLabel.text = String(format: "%.2f", animations[index].duration)
+        delayLabel.text = String(format: "%.2f", animations[index].delay)
     }
 }
 

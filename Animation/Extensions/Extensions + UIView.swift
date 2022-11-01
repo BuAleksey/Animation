@@ -13,6 +13,5 @@ extension UIView {
         self.layer.shadowColor = UIColor.darkGray.cgColor
         self.layer.shadowRadius = 7
         self.layer.shadowOpacity = 0.5
-        
     }
 }
